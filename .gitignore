@@ -1,0 +1,4 @@
+# Ignorar todos os arquivos .gguf na pasta models
+models/*.gguf
+
+arquivos

@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  assistente-juridico:
+    build: .
+    container_name: assistente-juridico
+    ports:
+      - "7860:7860"  # Gradio
+      - "5000:5000"  # Flask
+    volumes:
+      - ./app:/app
+      - ./arquivos:/app/arquivos
+      - ./static:/app/static
+    environment:
+      - FLASK_ENV=production
+    restart: unless-stopped

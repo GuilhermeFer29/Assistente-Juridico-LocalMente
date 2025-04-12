@@ -1,0 +1,35 @@
+# Dependências principais
+flask==2.3.2
+flask-login==0.6.2
+gradio==3.41.2
+werkzeug==2.3.7
+
+# Banco de dados e ORM
+sqlite3==2.6.0  # Normalmente já incluído no Python
+python-dotenv==1.0.0
+
+# Processamento de documentos
+PyPDF2==3.0.1
+python-docx==0.8.11
+ebooklib==0.17.1
+beautifulsoup4==4.12.2  # Para processamento de HTML em EPUBs
+
+# Machine Learning & Embeddings
+numpy==1.24.3
+sentence-transformers==2.2.2
+torch==2.0.1+cu118 --extra-index-url https://download.pytorch.org/whl/cu118
+transformers==4.31.0  # Para modelos LLM
+
+# Requisições HTTP
+requests==2.31.0
+
+# Processamento de imagens (para favicon)
+pillow==10.0.0
+
+# Segurança e autenticação
+bcrypt==4.0.1  # Para hash de senhas mais seguro
+itsdangerous==2.1.2  # Para tokens de segurança
+
+# Utilitários
+python-multipart==0.0.6  # Para upload de arquivos
+tqdm==4.65.0  # Para barras de progresso
