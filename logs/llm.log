@@ -1,0 +1,633 @@
+2025-05-19 21:14:18,315 [I] db: Banco de dados criado/verificado com sucesso
+2025-05-19 21:14:18,315 [I] embedding: Tentando carregar índice existente...
+2025-05-19 21:14:18,321 [I] embedding: Índice carregado com sucesso. Contém 500 textos.
+2025-05-19 21:14:18,321 [I] llm_loader: 🔗 OpenRouter API Key detectada. Usando modelo online.
+2025-05-19 22:20:16,570 [I] db: Banco de dados criado/verificado com sucesso
+2025-05-19 22:20:16,571 [I] embedding: Tentando carregar índice existente...
+2025-05-19 22:20:16,584 [I] embedding: Índice carregado com sucesso. Contém 500 textos.
+2025-05-19 22:20:16,584 [I] llm_loader: 🔗 OpenRouter API Key detectada. Usando modelo online.
+2025-05-20 00:50:42,902 [I] db: Banco de dados criado/verificado com sucesso
+2025-05-20 00:50:42,903 [I] embedding: Tentando carregar índice existente...
+2025-05-20 00:50:42,961 [I] embedding: Novo índice FAISS criado com sucesso
+2025-05-20 00:50:42,962 [I] llm_loader: 🔗 OpenRouter API Key detectada. Usando modelo online.
+2025-05-20 00:50:43,326 [I] main: Dependências críticas verificadas
+2025-05-20 00:50:43,327 [I] main: Verificando estrutura de diretórios do projeto...
+2025-05-20 00:50:43,327 [I] main: Diretório models verificado/criado
+2025-05-20 00:50:43,327 [I] main: Diretório data verificado/criado
+2025-05-20 00:50:43,327 [I] main: Diretório cache verificado/criado
+2025-05-20 00:50:43,327 [I] main: Diretório cache/ocr verificado/criado
+2025-05-20 00:50:43,327 [I] main: Diretório arquivos verificado/criado
+2025-05-20 00:50:43,328 [I] main: Diretório static verificado/criado
+2025-05-20 00:50:43,328 [I] main: Ambiente configurado com sucesso
+2025-05-20 00:50:43,328 [I] main: Favicon criado com sucesso
+2025-05-20 00:50:43,329 [I] db: Banco de dados criado/verificado com sucesso
+2025-05-20 00:50:43,329 [I] main: Banco de dados inicializado com sucesso
+2025-05-20 00:50:43,329 [I] main: Modelo LLM inicializado com sucesso
+2025-05-20 00:50:43,332 [I] embedding: 👀 Monitoramento iniciado em 'arquivos/'
+2025-05-20 00:50:43,333 [I] main: ✅ Monitoramento de arquivos iniciado
+2025-05-20 00:50:43,333 [I] main: ⏳ Iniciando indexação em segundo plano...
+2025-05-20 00:50:43,333 [I] main: Thread de indexação iniciada com sucesso
+2025-05-20 00:50:43,334 [I] main: 🧠 Sistema de embeddings está pronto e monitorando novos arquivos.
+2025-05-20 00:50:43,334 [I] main: ✅ Flask configurado para integrar com Gradio
+2025-05-20 00:50:43,334 [I] main: LLM carregado com sucesso
+2025-05-20 00:50:43,334 [I] main: 🔄 Iniciando interface Gradio na porta 7861...
+2025-05-20 00:50:43,359 [I] embedding: Iniciando indexação com 1 processos para 53 arquivos
+2025-05-20 00:50:43,745 [I] main: Iniciando interface web...
+2025-05-20 00:50:43,746 [E] main: Erro ao iniciar Gradio: name 'create_gradio_interface' is not defined
+2025-05-20 00:50:43,746 [I] main: Tentando iniciar apenas com Flask...
+2025-05-20 00:50:44,452 [I] httpx: HTTP Request: GET http://localhost:7861/gradio_api/startup-events "HTTP/1.1 200 OK"
+2025-05-20 00:50:44,489 [I] httpx: HTTP Request: HEAD http://localhost:7861/ "HTTP/1.1 200 OK"
+2025-05-20 00:50:44,760 [I] httpx: HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2025-05-20 00:50:44,769 [I] httpx: HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2025-05-20 00:50:45,783 [I] docling.document_converter: Going to convert document batch...
+2025-05-20 00:50:45,784 [I] docling.document_converter: Initializing pipeline for StandardPdfPipeline with options hash 70041f74270850b7bedf7c8f5c2dcede
+2025-05-20 00:50:45,800 [I] docling.models.factories.base_factory: Loading plugin 'docling_defaults'
+2025-05-20 00:50:45,800 [I] docling.models.factories: Registered ocr engines: ['easyocr', 'ocrmac', 'rapidocr', 'tesserocr', 'tesseract']
+2025-05-20 00:50:45,908 [I] docling.utils.accelerator_utils: Accelerator device: 'cpu'
+2025-05-20 00:50:45,914 [W] easyocr.easyocr: Downloading detection model, please wait. This may take several minutes depending upon your network connection.
+2025-05-20 00:50:50,033 [I] easyocr.easyocr: Download complete
+2025-05-20 00:50:50,034 [W] easyocr.easyocr: Downloading recognition model, please wait. This may take several minutes depending upon your network connection.
+2025-05-20 00:50:51,309 [I] easyocr.easyocr: Download complete.
+2025-05-20 00:50:58,512 [I] docling.utils.accelerator_utils: Accelerator device: 'cpu'
+2025-05-20 00:51:14,169 [I] docling.utils.accelerator_utils: Accelerator device: 'cpu'
+2025-05-20 00:51:16,361 [I] docling.models.factories.base_factory: Loading plugin 'docling_defaults'
+2025-05-20 00:51:16,361 [I] docling.models.factories: Registered picture descriptions: ['vlm', 'api']
+2025-05-20 00:51:16,362 [I] docling.pipeline.base_pipeline: Processing document direito6.pdf
+2025-05-20 01:05:27,248 [I] db: Banco de dados criado/verificado com sucesso
+2025-05-20 01:05:27,249 [I] embedding: Tentando carregar índice existente...
+2025-05-20 01:05:27,251 [I] embedding: Índice carregado com sucesso. Contém 500 textos.
+2025-05-20 01:05:27,252 [I] llm_loader: 🔗 OpenRouter API Key detectada. Usando modelo online.
+2025-05-20 01:05:27,952 [I] main: Dependências críticas verificadas
+2025-05-20 01:05:27,952 [I] main: Verificando estrutura de diretórios do projeto...
+2025-05-20 01:05:27,952 [I] main: Diretório models verificado/criado
+2025-05-20 01:05:27,952 [I] main: Diretório data verificado/criado
+2025-05-20 01:05:27,953 [I] main: Diretório cache verificado/criado
+2025-05-20 01:05:27,953 [I] main: Diretório cache/ocr verificado/criado
+2025-05-20 01:05:27,953 [I] main: Diretório arquivos verificado/criado
+2025-05-20 01:05:27,953 [I] main: Diretório static verificado/criado
+2025-05-20 01:05:27,953 [I] main: Ambiente configurado com sucesso
+2025-05-20 01:05:27,953 [I] main: Favicon criado com sucesso
+2025-05-20 01:05:27,954 [I] db: Banco de dados criado/verificado com sucesso
+2025-05-20 01:05:27,954 [I] main: Banco de dados inicializado com sucesso
+2025-05-20 01:05:27,954 [I] main: Modelo LLM inicializado com sucesso
+2025-05-20 01:05:27,955 [I] embedding: 👀 Monitoramento iniciado em 'arquivos/'
+2025-05-20 01:05:27,955 [I] main: ✅ Monitoramento de arquivos iniciado
+2025-05-20 01:05:27,956 [I] main: ⏳ Iniciando indexação em segundo plano...
+2025-05-20 01:05:27,956 [I] main: Thread de indexação iniciada com sucesso
+2025-05-20 01:05:27,956 [I] main: 🧠 Sistema de embeddings está pronto e monitorando novos arquivos.
+2025-05-20 01:05:27,956 [I] main: ✅ Flask configurado para integrar com Gradio
+2025-05-20 01:05:27,956 [I] main: LLM carregado com sucesso
+2025-05-20 01:05:27,957 [I] main: 🔄 Iniciando interface Gradio na porta 7861...
+2025-05-20 01:05:28,213 [I] main: Iniciando interface web...
+2025-05-20 01:05:28,213 [I] embedding: Iniciando indexação com 1 processos para 53 arquivos
+2025-05-20 01:05:28,213 [E] main: Erro ao iniciar Gradio: name 'create_gradio_interface' is not defined
+2025-05-20 01:05:28,215 [I] main: Tentando iniciar apenas com Flask...
+2025-05-20 01:05:28,805 [I] httpx: HTTP Request: GET http://localhost:7861/gradio_api/startup-events "HTTP/1.1 200 OK"
+2025-05-20 01:05:28,839 [I] httpx: HTTP Request: HEAD http://localhost:7861/ "HTTP/1.1 200 OK"
+2025-05-20 01:05:29,125 [I] httpx: HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2025-05-20 01:05:29,140 [I] httpx: HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2025-05-20 01:05:30,377 [I] docling.document_converter: Going to convert document batch...
+2025-05-20 01:05:30,377 [I] docling.document_converter: Initializing pipeline for StandardPdfPipeline with options hash 70041f74270850b7bedf7c8f5c2dcede
+2025-05-20 01:05:30,391 [I] docling.models.factories.base_factory: Loading plugin 'docling_defaults'
+2025-05-20 01:05:30,391 [I] docling.models.factories: Registered ocr engines: ['easyocr', 'ocrmac', 'rapidocr', 'tesserocr', 'tesseract']
+2025-05-20 01:05:30,478 [I] docling.utils.accelerator_utils: Accelerator device: 'cpu'
+2025-05-20 01:05:30,482 [W] easyocr.easyocr: Downloading detection model, please wait. This may take several minutes depending upon your network connection.
+2025-05-20 01:05:33,599 [I] easyocr.easyocr: Download complete
+2025-05-20 01:05:33,599 [W] easyocr.easyocr: Downloading recognition model, please wait. This may take several minutes depending upon your network connection.
+2025-05-20 01:05:34,773 [I] easyocr.easyocr: Download complete.
+2025-05-20 01:05:40,134 [I] docling.utils.accelerator_utils: Accelerator device: 'cpu'
+2025-05-20 01:05:53,393 [I] docling.utils.accelerator_utils: Accelerator device: 'cpu'
+2025-05-20 01:06:00,322 [I] docling.models.factories.base_factory: Loading plugin 'docling_defaults'
+2025-05-20 01:06:00,325 [I] docling.models.factories: Registered picture descriptions: ['vlm', 'api']
+2025-05-20 01:06:00,326 [I] docling.pipeline.base_pipeline: Processing document direito6.pdf
+2025-05-20 01:26:17,918 [I] db: Banco de dados criado/verificado com sucesso
+2025-05-20 01:26:17,919 [I] embedding: Tentando carregar índice existente...
+2025-05-20 01:26:17,920 [I] embedding: Índice carregado com sucesso. Contém 500 textos.
+2025-05-20 01:26:17,920 [I] llm_loader: 🔗 OpenRouter API Key detectada. Usando modelo online.
+2025-05-20 01:26:18,623 [I] main: Dependências críticas verificadas
+2025-05-20 01:26:18,623 [I] main: Verificando estrutura de diretórios do projeto...
+2025-05-20 01:26:18,623 [I] main: Diretório models verificado/criado
+2025-05-20 01:26:18,623 [I] main: Diretório data verificado/criado
+2025-05-20 01:26:18,624 [I] main: Diretório cache verificado/criado
+2025-05-20 01:26:18,624 [I] main: Diretório cache/ocr verificado/criado
+2025-05-20 01:26:18,624 [I] main: Diretório arquivos verificado/criado
+2025-05-20 01:26:18,624 [I] main: Diretório static verificado/criado
+2025-05-20 01:26:18,624 [I] main: Ambiente configurado com sucesso
+2025-05-20 01:26:18,624 [I] main: Favicon criado com sucesso
+2025-05-20 01:26:18,625 [I] db: Banco de dados criado/verificado com sucesso
+2025-05-20 01:26:18,625 [I] main: Banco de dados inicializado com sucesso
+2025-05-20 01:26:18,625 [I] main: Modelo LLM inicializado com sucesso
+2025-05-20 01:26:18,626 [I] embedding: 👀 Monitoramento iniciado em 'arquivos/'
+2025-05-20 01:26:18,627 [I] main: ✅ Monitoramento de arquivos iniciado
+2025-05-20 01:26:18,627 [I] main: ⏳ Iniciando indexação em segundo plano...
+2025-05-20 01:26:18,627 [I] main: Thread de indexação iniciada com sucesso
+2025-05-20 01:26:18,627 [I] main: 🧠 Sistema de embeddings está pronto e monitorando novos arquivos.
+2025-05-20 01:26:18,628 [I] main: ✅ Flask configurado para integrar com Gradio
+2025-05-20 01:26:18,628 [I] main: LLM carregado com sucesso
+2025-05-20 01:26:18,628 [I] main: 🔄 Iniciando interface Gradio na porta 7861...
+2025-05-20 01:26:18,773 [I] embedding: Iniciando indexação com 1 processos para 53 arquivos
+2025-05-20 01:26:18,886 [I] main: Iniciando interface web...
+2025-05-20 01:26:19,450 [I] httpx: HTTP Request: GET http://localhost:7861/gradio_api/startup-events "HTTP/1.1 200 OK"
+2025-05-20 01:26:19,476 [I] httpx: HTTP Request: HEAD http://localhost:7861/ "HTTP/1.1 200 OK"
+2025-05-20 01:26:19,479 [I] main: Interface Gradio iniciada com sucesso na porta 7861
+2025-05-20 01:26:19,736 [I] httpx: HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2025-05-20 01:26:19,772 [I] httpx: HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2025-05-20 01:26:21,161 [I] docling.document_converter: Going to convert document batch...
+2025-05-20 01:26:21,161 [I] docling.document_converter: Initializing pipeline for StandardPdfPipeline with options hash 70041f74270850b7bedf7c8f5c2dcede
+2025-05-20 01:26:21,176 [I] docling.models.factories.base_factory: Loading plugin 'docling_defaults'
+2025-05-20 01:26:21,176 [I] docling.models.factories: Registered ocr engines: ['easyocr', 'ocrmac', 'rapidocr', 'tesserocr', 'tesseract']
+2025-05-20 01:26:21,272 [I] docling.utils.accelerator_utils: Accelerator device: 'cpu'
+2025-05-20 01:26:21,276 [W] easyocr.easyocr: Downloading detection model, please wait. This may take several minutes depending upon your network connection.
+2025-05-20 01:26:24,559 [I] easyocr.easyocr: Download complete
+2025-05-20 01:26:24,559 [W] easyocr.easyocr: Downloading recognition model, please wait. This may take several minutes depending upon your network connection.
+2025-05-20 01:26:26,153 [I] easyocr.easyocr: Download complete.
+2025-05-20 01:26:31,216 [I] docling.utils.accelerator_utils: Accelerator device: 'cpu'
+2025-05-20 01:26:46,995 [I] docling.utils.accelerator_utils: Accelerator device: 'cpu'
+2025-05-20 01:26:48,922 [I] docling.models.factories.base_factory: Loading plugin 'docling_defaults'
+2025-05-20 01:26:48,922 [I] docling.models.factories: Registered picture descriptions: ['vlm', 'api']
+2025-05-20 01:26:48,923 [I] docling.pipeline.base_pipeline: Processing document direito6.pdf
+2025-05-20 01:28:50,702 [E] main: Erro na autenticação: Working outside of request context.
+
+This typically means that you attempted to use functionality that needed
+an active HTTP request. Consult the documentation on testing for
+information about how to avoid this problem.
+2025-05-20 01:44:59,978 [I] db: Banco de dados criado/verificado com sucesso
+2025-05-20 01:44:59,979 [I] embedding: Tentando carregar índice existente...
+2025-05-20 01:44:59,982 [I] embedding: Índice carregado com sucesso. Contém 500 textos.
+2025-05-20 01:44:59,982 [I] llm_loader: 🔗 OpenRouter API Key detectada. Usando modelo online.
+2025-05-20 01:45:00,505 [I] main: Dependências críticas verificadas
+2025-05-20 01:45:00,505 [I] main: Verificando estrutura de diretórios do projeto...
+2025-05-20 01:45:00,505 [I] main: Diretório models verificado/criado
+2025-05-20 01:45:00,505 [I] main: Diretório data verificado/criado
+2025-05-20 01:45:00,505 [I] main: Diretório cache verificado/criado
+2025-05-20 01:45:00,505 [I] main: Diretório cache/ocr verificado/criado
+2025-05-20 01:45:00,506 [I] main: Diretório arquivos verificado/criado
+2025-05-20 01:45:00,506 [I] main: Diretório static verificado/criado
+2025-05-20 01:45:00,506 [I] main: Ambiente configurado com sucesso
+2025-05-20 01:45:00,506 [I] main: Favicon criado com sucesso
+2025-05-20 01:45:00,507 [I] db: Banco de dados criado/verificado com sucesso
+2025-05-20 01:45:00,507 [I] main: Banco de dados inicializado com sucesso
+2025-05-20 01:45:00,507 [I] main: Modelo LLM inicializado com sucesso
+2025-05-20 01:45:00,508 [I] embedding: 👀 Monitoramento iniciado em 'arquivos/'
+2025-05-20 01:45:00,508 [I] main: ✅ Monitoramento de arquivos iniciado
+2025-05-20 01:45:00,509 [I] main: ⏳ Iniciando indexação em segundo plano...
+2025-05-20 01:45:00,509 [I] main: Thread de indexação iniciada com sucesso
+2025-05-20 01:45:00,509 [I] main: 🧠 Sistema de embeddings está pronto e monitorando novos arquivos.
+2025-05-20 01:45:00,509 [I] main: ✅ Flask configurado para integrar com Gradio
+2025-05-20 01:45:00,510 [I] main: LLM carregado com sucesso
+2025-05-20 01:45:00,510 [I] main: 🔄 Iniciando interface Gradio na porta 7861...
+2025-05-20 01:45:00,767 [I] main: Iniciando interface web...
+2025-05-20 01:45:00,819 [I] embedding: Iniciando indexação com 1 processos para 53 arquivos
+2025-05-20 01:45:01,383 [I] httpx: HTTP Request: GET http://localhost:7861/gradio_api/startup-events "HTTP/1.1 200 OK"
+2025-05-20 01:45:01,409 [I] httpx: HTTP Request: HEAD http://localhost:7861/ "HTTP/1.1 200 OK"
+2025-05-20 01:45:01,412 [I] main: Interface Gradio iniciada com sucesso na porta 7861
+2025-05-20 01:45:01,696 [I] httpx: HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2025-05-20 01:45:01,697 [I] httpx: HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2025-05-20 01:45:04,773 [I] docling.document_converter: Going to convert document batch...
+2025-05-20 01:45:04,773 [I] docling.document_converter: Initializing pipeline for StandardPdfPipeline with options hash 70041f74270850b7bedf7c8f5c2dcede
+2025-05-20 01:45:04,788 [I] docling.models.factories.base_factory: Loading plugin 'docling_defaults'
+2025-05-20 01:45:04,788 [I] docling.models.factories: Registered ocr engines: ['easyocr', 'ocrmac', 'rapidocr', 'tesserocr', 'tesseract']
+2025-05-20 01:45:04,872 [I] docling.utils.accelerator_utils: Accelerator device: 'cpu'
+2025-05-20 01:45:04,876 [W] easyocr.easyocr: Downloading detection model, please wait. This may take several minutes depending upon your network connection.
+2025-05-20 01:45:08,948 [I] easyocr.easyocr: Download complete
+2025-05-20 01:45:08,948 [W] easyocr.easyocr: Downloading recognition model, please wait. This may take several minutes depending upon your network connection.
+2025-05-20 01:45:10,259 [I] easyocr.easyocr: Download complete.
+2025-05-20 01:45:16,136 [I] docling.utils.accelerator_utils: Accelerator device: 'cpu'
+2025-05-20 01:45:33,033 [I] docling.utils.accelerator_utils: Accelerator device: 'cpu'
+2025-05-20 01:45:36,351 [I] docling.models.factories.base_factory: Loading plugin 'docling_defaults'
+2025-05-20 01:45:36,352 [I] docling.models.factories: Registered picture descriptions: ['vlm', 'api']
+2025-05-20 01:45:36,352 [I] docling.pipeline.base_pipeline: Processing document direito6.pdf
+2025-05-20 01:45:59,379 [I] main: Login manual realizado para: leciguilherme@gmail.com
+2025-05-20 01:46:24,544 [I] llm_loader: Gerando resposta com modelo online OpenRouter
+2025-05-20 01:47:56,248 [I] llm_loader: Gerando resposta com modelo online OpenRouter
+2025-05-20 01:48:09,549 [I] main: Logout manual realizado com sucesso.
+2025-05-20 01:48:24,747 [I] main: Login manual realizado para: teste@gmail.com
+2025-05-20 01:48:27,950 [I] main: Logout manual realizado com sucesso.
+2025-05-20 01:55:00,947 [E] embedding: Erro durante extração paralela: 
+2025-05-20 01:55:01,093 [I] embedding: Tentando carregar índice existente...
+2025-05-20 01:55:01,110 [I] embedding: Índice carregado com sucesso. Contém 500 textos.
+2025-05-20 01:55:01,118 [I] embedding: ✅ 0/53 arquivos indexados com sucesso
+2025-05-20 01:55:01,120 [I] main: ✅ Indexação inicial concluída.
+2025-06-04 02:10:44,457 [I] db: Banco de dados criado/verificado com sucesso
+2025-06-04 02:10:44,458 [I] embedding: Tentando carregar índice existente...
+2025-06-04 02:10:44,459 [I] embedding: Índice carregado com sucesso. Contém 500 textos.
+2025-06-04 02:10:44,459 [I] llm_loader: 🔗 OpenRouter API Key detectada. Usando modelo online.
+2025-06-04 02:10:44,753 [I] main: Dependências críticas verificadas
+2025-06-04 02:10:44,754 [I] main: Verificando estrutura de diretórios do projeto...
+2025-06-04 02:10:44,754 [I] main: Diretório models verificado/criado
+2025-06-04 02:10:44,754 [I] main: Diretório data verificado/criado
+2025-06-04 02:10:44,754 [I] main: Diretório cache verificado/criado
+2025-06-04 02:10:44,754 [I] main: Diretório cache/ocr verificado/criado
+2025-06-04 02:10:44,754 [I] main: Diretório arquivos verificado/criado
+2025-06-04 02:10:44,754 [I] main: Diretório static verificado/criado
+2025-06-04 02:10:44,754 [I] main: Ambiente configurado com sucesso
+2025-06-04 02:10:44,755 [I] main: Favicon criado com sucesso
+2025-06-04 02:10:44,755 [I] db: Banco de dados criado/verificado com sucesso
+2025-06-04 02:10:44,755 [I] main: Banco de dados inicializado com sucesso
+2025-06-04 02:10:44,755 [I] main: Modelo LLM inicializado com sucesso
+2025-06-04 02:10:44,757 [I] embedding: 👀 Monitoramento iniciado em 'arquivos/'
+2025-06-04 02:10:44,757 [I] main: ✅ Monitoramento de arquivos iniciado
+2025-06-04 02:10:44,757 [I] main: ⏳ Iniciando indexação em segundo plano...
+2025-06-04 02:10:44,757 [I] main: Thread de indexação iniciada com sucesso
+2025-06-04 02:10:44,757 [I] main: 🧠 Sistema de embeddings está pronto e monitorando novos arquivos.
+2025-06-04 02:10:44,758 [I] main: ✅ Flask configurado para integrar com Gradio
+2025-06-04 02:10:44,758 [I] main: LLM carregado com sucesso
+2025-06-04 02:10:44,758 [I] main: 🔄 Iniciando interface Gradio na porta 7861...
+2025-06-04 02:10:44,957 [I] embedding: Iniciando indexação com 1 processos para 53 arquivos
+2025-06-04 02:10:45,018 [I] main: Iniciando interface web...
+2025-06-04 02:10:45,589 [I] httpx: HTTP Request: GET http://localhost:7861/gradio_api/startup-events "HTTP/1.1 200 OK"
+2025-06-04 02:10:45,616 [I] httpx: HTTP Request: HEAD http://localhost:7861/ "HTTP/1.1 200 OK"
+2025-06-04 02:10:45,619 [I] main: Interface Gradio iniciada com sucesso na porta 7861
+2025-06-04 02:10:45,807 [I] httpx: HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2025-06-04 02:10:45,916 [I] httpx: HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2025-06-04 02:20:55,740 [I] db: Banco de dados criado/verificado com sucesso
+2025-06-04 02:20:55,741 [I] embedding: Tentando carregar índice existente...
+2025-06-04 02:20:55,742 [I] embedding: Índice carregado com sucesso. Contém 500 textos.
+2025-06-04 02:20:55,743 [I] llm_loader: 🔗 OpenRouter API Key detectada. Usando modelo online.
+2025-06-04 02:20:56,035 [I] main: Dependências críticas verificadas
+2025-06-04 02:20:56,036 [I] main: Verificando estrutura de diretórios do projeto...
+2025-06-04 02:20:56,036 [I] main: Diretório models verificado/criado
+2025-06-04 02:20:56,036 [I] main: Diretório data verificado/criado
+2025-06-04 02:20:56,036 [I] main: Diretório cache verificado/criado
+2025-06-04 02:20:56,036 [I] main: Diretório cache/ocr verificado/criado
+2025-06-04 02:20:56,036 [I] main: Diretório arquivos verificado/criado
+2025-06-04 02:20:56,036 [I] main: Diretório static verificado/criado
+2025-06-04 02:20:56,036 [I] main: Ambiente configurado com sucesso
+2025-06-04 02:20:56,037 [I] main: Favicon criado com sucesso
+2025-06-04 02:20:56,037 [I] db: Banco de dados criado/verificado com sucesso
+2025-06-04 02:20:56,037 [I] main: Banco de dados inicializado com sucesso
+2025-06-04 02:20:56,037 [I] main: Modelo LLM inicializado com sucesso
+2025-06-04 02:20:56,039 [I] embedding: 👀 Monitoramento iniciado em 'arquivos/'
+2025-06-04 02:20:56,039 [I] main: ✅ Monitoramento de arquivos iniciado
+2025-06-04 02:20:56,039 [I] main: ⏳ Iniciando indexação em segundo plano...
+2025-06-04 02:20:56,039 [I] main: Thread de indexação iniciada com sucesso
+2025-06-04 02:20:56,040 [I] main: 🧠 Sistema de embeddings está pronto e monitorando novos arquivos.
+2025-06-04 02:20:56,040 [I] main: ✅ Flask configurado para integrar com Gradio
+2025-06-04 02:20:56,040 [I] main: LLM carregado com sucesso
+2025-06-04 02:20:56,040 [I] main: 🔄 Iniciando interface Gradio na porta 7861...
+2025-06-04 02:20:56,046 [I] embedding: Iniciando indexação com 1 processos para 53 arquivos
+2025-06-04 02:20:56,348 [I] main: Iniciando interface web...
+2025-06-04 02:20:56,881 [I] httpx: HTTP Request: GET http://localhost:7861/gradio_api/startup-events "HTTP/1.1 200 OK"
+2025-06-04 02:20:56,907 [I] httpx: HTTP Request: HEAD http://localhost:7861/ "HTTP/1.1 200 OK"
+2025-06-04 02:20:56,909 [I] main: Interface Gradio iniciada com sucesso na porta 7861
+2025-06-04 02:20:57,022 [I] httpx: HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2025-06-04 02:20:57,226 [I] httpx: HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2025-06-04 02:20:59,000 [I] docling.document_converter: Going to convert document batch...
+2025-06-04 02:20:59,000 [I] docling.document_converter: Initializing pipeline for StandardPdfPipeline with options hash 70041f74270850b7bedf7c8f5c2dcede
+2025-06-04 02:20:59,019 [I] docling.models.factories.base_factory: Loading plugin 'docling_defaults'
+2025-06-04 02:20:59,020 [I] docling.models.factories: Registered ocr engines: ['easyocr', 'ocrmac', 'rapidocr', 'tesserocr', 'tesseract']
+2025-06-04 02:20:59,106 [I] docling.utils.accelerator_utils: Accelerator device: 'cpu'
+2025-06-04 02:20:59,109 [W] easyocr.easyocr: Downloading detection model, please wait. This may take several minutes depending upon your network connection.
+2025-06-04 02:21:03,087 [I] easyocr.easyocr: Download complete
+2025-06-04 02:21:03,087 [W] easyocr.easyocr: Downloading recognition model, please wait. This may take several minutes depending upon your network connection.
+2025-06-04 02:21:04,536 [I] easyocr.easyocr: Download complete.
+2025-06-04 02:21:09,742 [I] docling.utils.accelerator_utils: Accelerator device: 'cpu'
+2025-06-04 02:21:19,708 [I] docling.utils.accelerator_utils: Accelerator device: 'cpu'
+2025-06-04 02:21:20,862 [I] docling.models.factories.base_factory: Loading plugin 'docling_defaults'
+2025-06-04 02:21:20,862 [I] docling.models.factories: Registered picture descriptions: ['vlm', 'api']
+2025-06-04 02:21:20,863 [I] docling.pipeline.base_pipeline: Processing document direito6.pdf
+2025-06-04 02:27:11,756 [I] main: Login manual realizado para: teste@gmail.com
+2025-06-04 02:30:56,173 [E] embedding: Erro durante extração paralela: 
+2025-06-04 02:30:56,351 [I] embedding: Tentando carregar índice existente...
+2025-06-04 02:30:56,371 [I] embedding: Índice carregado com sucesso. Contém 500 textos.
+2025-06-04 02:30:56,378 [I] embedding: ✅ 0/53 arquivos indexados com sucesso
+2025-06-04 02:30:56,380 [I] main: ✅ Indexação inicial concluída.
+2025-06-04 12:16:36,423 [I] main: Login manual realizado para: teste@gmail.com
+2025-06-04 12:16:52,664 [I] llm_loader: Gerando resposta com modelo online OpenRouter
+2025-06-04 15:09:49,631 [I] db: Banco de dados criado/verificado com sucesso
+2025-06-04 15:09:49,632 [I] embedding: Tentando carregar índice existente...
+2025-06-04 15:09:49,633 [I] embedding: Índice carregado com sucesso. Contém 500 textos.
+2025-06-04 15:09:49,633 [I] llm_loader: 🔗 OpenRouter API Key detectada. Usando modelo online.
+2025-06-04 15:09:49,918 [I] main: Dependências críticas verificadas
+2025-06-04 15:09:49,918 [I] main: Verificando estrutura de diretórios do projeto...
+2025-06-04 15:09:49,918 [I] main: Diretório models verificado/criado
+2025-06-04 15:09:49,918 [I] main: Diretório data verificado/criado
+2025-06-04 15:09:49,918 [I] main: Diretório cache verificado/criado
+2025-06-04 15:09:49,935 [I] main: Diretório cache/ocr verificado/criado
+2025-06-04 15:09:49,935 [I] main: Diretório arquivos verificado/criado
+2025-06-04 15:09:49,936 [I] main: Diretório static verificado/criado
+2025-06-04 15:09:49,948 [I] main: Ambiente configurado com sucesso
+2025-06-04 15:09:49,949 [I] main: Favicon criado com sucesso
+2025-06-04 15:09:49,949 [I] db: Banco de dados criado/verificado com sucesso
+2025-06-04 15:09:49,949 [I] main: Banco de dados inicializado com sucesso
+2025-06-04 15:09:49,949 [I] main: Modelo LLM inicializado com sucesso
+2025-06-04 15:09:49,951 [I] embedding: 👀 Monitoramento iniciado em 'arquivos/'
+2025-06-04 15:09:49,951 [I] main: ✅ Monitoramento de arquivos iniciado
+2025-06-04 15:09:49,951 [I] main: ⏳ Iniciando indexação em segundo plano...
+2025-06-04 15:09:49,951 [I] main: Thread de indexação iniciada com sucesso
+2025-06-04 15:09:49,952 [I] main: 🧠 Sistema de embeddings está pronto e monitorando novos arquivos.
+2025-06-04 15:09:49,952 [I] main: ✅ Flask configurado para integrar com Gradio
+2025-06-04 15:09:49,952 [I] main: LLM carregado com sucesso
+2025-06-04 15:09:49,952 [I] main: 🔄 Iniciando interface Gradio na porta 7861...
+2025-06-04 15:09:50,221 [I] main: Iniciando interface web...
+2025-06-04 15:09:50,223 [I] embedding: Iniciando indexação com 1 processos para 53 arquivos
+2025-06-04 15:09:50,803 [I] httpx: HTTP Request: GET http://localhost:7861/gradio_api/startup-events "HTTP/1.1 200 OK"
+2025-06-04 15:09:50,835 [I] httpx: HTTP Request: HEAD http://localhost:7861/ "HTTP/1.1 200 OK"
+2025-06-04 15:09:50,838 [I] main: Interface Gradio iniciada com sucesso na porta 7861
+2025-06-04 15:09:51,092 [I] docling.document_converter: Going to convert document batch...
+2025-06-04 15:09:51,092 [I] docling.document_converter: Initializing pipeline for StandardPdfPipeline with options hash 70041f74270850b7bedf7c8f5c2dcede
+2025-06-04 15:09:51,110 [I] docling.models.factories.base_factory: Loading plugin 'docling_defaults'
+2025-06-04 15:09:51,110 [I] docling.models.factories: Registered ocr engines: ['easyocr', 'ocrmac', 'rapidocr', 'tesserocr', 'tesseract']
+2025-06-04 15:09:51,206 [I] docling.utils.accelerator_utils: Accelerator device: 'cpu'
+2025-06-04 15:09:51,386 [I] httpx: HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2025-06-04 15:09:51,414 [I] httpx: HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2025-06-04 15:09:56,505 [I] docling.utils.accelerator_utils: Accelerator device: 'cpu'
+2025-06-04 15:09:57,943 [I] docling.utils.accelerator_utils: Accelerator device: 'cpu'
+2025-06-04 15:09:59,681 [I] docling.models.factories.base_factory: Loading plugin 'docling_defaults'
+2025-06-04 15:09:59,681 [I] docling.models.factories: Registered picture descriptions: ['vlm', 'api']
+2025-06-04 15:09:59,682 [I] docling.pipeline.base_pipeline: Processing document direito6.pdf
+2025-06-04 15:11:58,601 [I] db: Banco de dados criado/verificado com sucesso
+2025-06-04 15:11:58,601 [I] embedding: Tentando carregar índice existente...
+2025-06-04 15:11:58,602 [I] embedding: Índice carregado com sucesso. Contém 500 textos.
+2025-06-04 15:11:58,602 [I] llm_loader: 🔗 OpenRouter API Key detectada. Usando modelo online.
+2025-06-04 15:11:58,906 [I] main: Dependências críticas verificadas
+2025-06-04 15:11:58,906 [I] main: Verificando estrutura de diretórios do projeto...
+2025-06-04 15:11:58,907 [I] main: Diretório models verificado/criado
+2025-06-04 15:11:58,907 [I] main: Diretório data verificado/criado
+2025-06-04 15:11:58,907 [I] main: Diretório cache verificado/criado
+2025-06-04 15:11:58,907 [I] main: Diretório cache/ocr verificado/criado
+2025-06-04 15:11:58,907 [I] main: Diretório arquivos verificado/criado
+2025-06-04 15:11:58,907 [I] main: Diretório static verificado/criado
+2025-06-04 15:11:58,908 [I] main: Ambiente configurado com sucesso
+2025-06-04 15:11:58,908 [I] main: Favicon criado com sucesso
+2025-06-04 15:11:58,909 [I] db: Banco de dados criado/verificado com sucesso
+2025-06-04 15:11:58,909 [I] main: Banco de dados inicializado com sucesso
+2025-06-04 15:11:58,909 [I] main: Modelo LLM inicializado com sucesso
+2025-06-04 15:11:58,910 [I] embedding: 👀 Monitoramento iniciado em 'arquivos/'
+2025-06-04 15:11:58,910 [I] main: ✅ Monitoramento de arquivos iniciado
+2025-06-04 15:11:58,911 [I] main: ⏳ Iniciando indexação em segundo plano...
+2025-06-04 15:11:58,911 [I] main: Thread de indexação iniciada com sucesso
+2025-06-04 15:11:58,911 [I] main: 🧠 Sistema de embeddings está pronto e monitorando novos arquivos.
+2025-06-04 15:11:58,911 [I] main: ✅ Flask configurado para integrar com Gradio
+2025-06-04 15:11:58,911 [I] main: LLM carregado com sucesso
+2025-06-04 15:11:58,912 [I] main: 🔄 Iniciando interface Gradio na porta 7861...
+2025-06-04 15:11:59,126 [I] embedding: Iniciando indexação com 1 processos para 53 arquivos
+2025-06-04 15:11:59,209 [I] main: Iniciando interface web...
+2025-06-04 15:11:59,811 [I] httpx: HTTP Request: GET http://localhost:7861/gradio_api/startup-events "HTTP/1.1 200 OK"
+2025-06-04 15:11:59,837 [I] httpx: HTTP Request: HEAD http://localhost:7861/ "HTTP/1.1 200 OK"
+2025-06-04 15:11:59,841 [I] main: Interface Gradio iniciada com sucesso na porta 7861
+2025-06-04 15:12:00,055 [I] docling.document_converter: Going to convert document batch...
+2025-06-04 15:12:00,056 [I] docling.document_converter: Initializing pipeline for StandardPdfPipeline with options hash 70041f74270850b7bedf7c8f5c2dcede
+2025-06-04 15:12:00,079 [I] docling.models.factories.base_factory: Loading plugin 'docling_defaults'
+2025-06-04 15:12:00,079 [I] docling.models.factories: Registered ocr engines: ['easyocr', 'ocrmac', 'rapidocr', 'tesserocr', 'tesseract']
+2025-06-04 15:12:00,156 [I] httpx: HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2025-06-04 15:12:00,166 [I] docling.utils.accelerator_utils: Accelerator device: 'cpu'
+2025-06-04 15:12:00,384 [I] httpx: HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2025-06-04 15:12:05,334 [I] docling.utils.accelerator_utils: Accelerator device: 'cpu'
+2025-06-04 15:12:07,029 [I] docling.utils.accelerator_utils: Accelerator device: 'cpu'
+2025-06-04 15:12:08,630 [I] docling.models.factories.base_factory: Loading plugin 'docling_defaults'
+2025-06-04 15:12:08,631 [I] docling.models.factories: Registered picture descriptions: ['vlm', 'api']
+2025-06-04 15:12:08,631 [I] docling.pipeline.base_pipeline: Processing document direito6.pdf
+2025-06-04 15:21:59,238 [E] embedding: Erro durante extração paralela: 
+2025-06-04 15:21:59,430 [I] embedding: Tentando carregar índice existente...
+2025-06-04 15:21:59,450 [I] embedding: Índice carregado com sucesso. Contém 500 textos.
+2025-06-04 15:21:59,458 [I] embedding: ✅ 0/53 arquivos indexados com sucesso
+2025-06-04 15:21:59,459 [I] main: ✅ Indexação inicial concluída.
+2025-06-04 15:24:16,626 [I] db: Banco de dados criado/verificado com sucesso
+2025-06-04 15:24:16,628 [I] embedding: Tentando carregar índice existente...
+2025-06-04 15:24:16,629 [I] embedding: Índice carregado com sucesso. Contém 500 textos.
+2025-06-04 15:24:16,629 [I] llm_loader: 🔗 OpenRouter API Key detectada. Usando modelo online.
+2025-06-04 15:24:17,007 [I] main: Dependências críticas verificadas
+2025-06-04 15:24:17,008 [I] main: Verificando estrutura de diretórios do projeto...
+2025-06-04 15:24:17,008 [I] main: Diretório models verificado/criado
+2025-06-04 15:24:17,008 [I] main: Diretório data verificado/criado
+2025-06-04 15:24:17,008 [I] main: Diretório cache verificado/criado
+2025-06-04 15:24:17,008 [I] main: Diretório cache/ocr verificado/criado
+2025-06-04 15:24:17,008 [I] main: Diretório arquivos verificado/criado
+2025-06-04 15:24:17,008 [I] main: Diretório static verificado/criado
+2025-06-04 15:24:17,009 [I] main: Ambiente configurado com sucesso
+2025-06-04 15:24:17,009 [I] main: Favicon criado com sucesso
+2025-06-04 15:24:17,009 [I] db: Banco de dados criado/verificado com sucesso
+2025-06-04 15:24:17,010 [I] main: Banco de dados inicializado com sucesso
+2025-06-04 15:24:17,010 [I] main: Modelo LLM inicializado com sucesso
+2025-06-04 15:24:17,011 [I] embedding: 👀 Monitoramento iniciado em 'arquivos/'
+2025-06-04 15:24:17,011 [I] main: ✅ Monitoramento de arquivos iniciado
+2025-06-04 15:24:17,012 [I] main: ⏳ Iniciando indexação em segundo plano...
+2025-06-04 15:24:17,012 [I] main: Thread de indexação iniciada com sucesso
+2025-06-04 15:24:17,012 [I] main: 🧠 Sistema de embeddings está pronto e monitorando novos arquivos.
+2025-06-04 15:24:17,012 [I] main: ✅ Flask configurado para integrar com Gradio
+2025-06-04 15:24:17,013 [I] main: LLM carregado com sucesso
+2025-06-04 15:24:17,013 [I] main: 🔄 Iniciando interface Gradio na porta 7861...
+2025-06-04 15:24:17,020 [I] embedding: Iniciando indexação com 1 processos para 53 arquivos
+2025-06-04 15:24:17,419 [I] main: Iniciando interface web...
+2025-06-04 15:24:17,991 [I] docling.document_converter: Going to convert document batch...
+2025-06-04 15:24:17,992 [I] docling.document_converter: Initializing pipeline for StandardPdfPipeline with options hash 70041f74270850b7bedf7c8f5c2dcede
+2025-06-04 15:24:18,032 [I] docling.models.factories.base_factory: Loading plugin 'docling_defaults'
+2025-06-04 15:24:18,033 [I] docling.models.factories: Registered ocr engines: ['easyocr', 'ocrmac', 'rapidocr', 'tesserocr', 'tesseract']
+2025-06-04 15:24:18,164 [I] httpx: HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2025-06-04 15:24:18,177 [I] docling.utils.accelerator_utils: Accelerator device: 'cpu'
+2025-06-04 15:24:18,335 [I] httpx: HTTP Request: GET http://localhost:7861/gradio_api/startup-events "HTTP/1.1 200 OK"
+2025-06-04 15:24:18,369 [I] httpx: HTTP Request: HEAD http://localhost:7861/ "HTTP/1.1 200 OK"
+2025-06-04 15:24:18,374 [I] main: Interface Gradio iniciada com sucesso na porta 7861
+2025-06-04 15:24:18,551 [I] httpx: HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2025-06-04 15:24:24,282 [I] docling.utils.accelerator_utils: Accelerator device: 'cpu'
+2025-06-04 15:24:26,269 [I] docling.utils.accelerator_utils: Accelerator device: 'cpu'
+2025-06-04 15:24:28,558 [I] docling.models.factories.base_factory: Loading plugin 'docling_defaults'
+2025-06-04 15:24:28,559 [I] docling.models.factories: Registered picture descriptions: ['vlm', 'api']
+2025-06-04 15:24:28,561 [I] docling.pipeline.base_pipeline: Processing document direito6.pdf
+2025-06-04 15:34:17,131 [E] embedding: Erro durante extração paralela: 
+2025-06-04 15:34:17,306 [I] embedding: Tentando carregar índice existente...
+2025-06-04 15:34:17,327 [I] embedding: Índice carregado com sucesso. Contém 500 textos.
+2025-06-04 15:34:17,333 [I] embedding: ✅ 0/53 arquivos indexados com sucesso
+2025-06-04 15:34:17,335 [I] main: ✅ Indexação inicial concluída.
+2025-06-04 15:35:41,616 [I] db: Banco de dados criado/verificado com sucesso
+2025-06-04 15:35:41,616 [I] embedding: Tentando carregar índice existente...
+2025-06-04 15:35:41,617 [I] embedding: Índice carregado com sucesso. Contém 500 textos.
+2025-06-04 15:35:41,618 [I] llm_loader: 🔗 OpenRouter API Key detectada. Usando modelo online.
+2025-06-04 15:35:41,917 [I] main: Dependências críticas verificadas
+2025-06-04 15:35:41,917 [I] main: Verificando estrutura de diretórios do projeto...
+2025-06-04 15:35:41,917 [I] main: Diretório models verificado/criado
+2025-06-04 15:35:41,917 [I] main: Diretório data verificado/criado
+2025-06-04 15:35:41,917 [I] main: Diretório cache verificado/criado
+2025-06-04 15:35:41,919 [I] main: Diretório cache/ocr verificado/criado
+2025-06-04 15:35:41,919 [I] main: Diretório arquivos verificado/criado
+2025-06-04 15:35:41,919 [I] main: Diretório static verificado/criado
+2025-06-04 15:35:41,920 [I] main: Ambiente configurado com sucesso
+2025-06-04 15:35:41,920 [I] main: Favicon criado com sucesso
+2025-06-04 15:35:41,921 [I] db: Banco de dados criado/verificado com sucesso
+2025-06-04 15:35:41,921 [I] main: Banco de dados inicializado com sucesso
+2025-06-04 15:35:41,921 [I] main: Modelo LLM inicializado com sucesso
+2025-06-04 15:35:41,922 [I] embedding: 👀 Monitoramento iniciado em 'arquivos/'
+2025-06-04 15:35:41,922 [I] main: ✅ Monitoramento de arquivos iniciado
+2025-06-04 15:35:41,923 [I] main: ⏳ Iniciando indexação em segundo plano...
+2025-06-04 15:35:41,923 [I] main: Thread de indexação iniciada com sucesso
+2025-06-04 15:35:41,923 [I] main: 🧠 Sistema de embeddings está pronto e monitorando novos arquivos.
+2025-06-04 15:35:41,923 [I] main: ✅ Flask configurado para integrar com Gradio
+2025-06-04 15:35:41,923 [I] main: LLM carregado com sucesso
+2025-06-04 15:35:41,924 [I] main: 🔄 Iniciando interface Gradio na porta 7861...
+2025-06-04 15:35:41,940 [I] embedding: Iniciando indexação com 1 processos para 53 arquivos
+2025-06-04 15:35:42,259 [I] main: Iniciando interface web...
+2025-06-04 15:35:42,907 [I] httpx: HTTP Request: GET http://localhost:7861/gradio_api/startup-events "HTTP/1.1 200 OK"
+2025-06-04 15:35:42,935 [I] httpx: HTTP Request: HEAD http://localhost:7861/ "HTTP/1.1 200 OK"
+2025-06-04 15:35:42,936 [I] docling.document_converter: Going to convert document batch...
+2025-06-04 15:35:42,937 [I] docling.document_converter: Initializing pipeline for StandardPdfPipeline with options hash 70041f74270850b7bedf7c8f5c2dcede
+2025-06-04 15:35:42,939 [I] main: Interface Gradio iniciada com sucesso na porta 7861
+2025-06-04 15:35:42,960 [I] docling.models.factories.base_factory: Loading plugin 'docling_defaults'
+2025-06-04 15:35:42,961 [I] docling.models.factories: Registered ocr engines: ['easyocr', 'ocrmac', 'rapidocr', 'tesserocr', 'tesseract']
+2025-06-04 15:35:43,051 [I] docling.utils.accelerator_utils: Accelerator device: 'cpu'
+2025-06-04 15:35:43,140 [I] httpx: HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2025-06-04 15:35:43,335 [I] httpx: HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2025-06-04 15:36:49,797 [I] db: Banco de dados criado/verificado com sucesso
+2025-06-04 15:36:49,798 [I] embedding: Tentando carregar índice existente...
+2025-06-04 15:36:49,799 [I] embedding: Índice carregado com sucesso. Contém 500 textos.
+2025-06-04 15:36:49,799 [I] llm_loader: 🔗 OpenRouter API Key detectada. Usando modelo online.
+2025-06-04 15:36:50,085 [I] main: Dependências críticas verificadas
+2025-06-04 15:36:50,085 [I] main: Verificando estrutura de diretórios do projeto...
+2025-06-04 15:36:50,085 [I] main: Diretório models verificado/criado
+2025-06-04 15:36:50,085 [I] main: Diretório data verificado/criado
+2025-06-04 15:36:50,086 [I] main: Diretório cache verificado/criado
+2025-06-04 15:36:50,088 [I] main: Diretório cache/ocr verificado/criado
+2025-06-04 15:36:50,088 [I] main: Diretório arquivos verificado/criado
+2025-06-04 15:36:50,088 [I] main: Diretório static verificado/criado
+2025-06-04 15:36:50,088 [I] main: Ambiente configurado com sucesso
+2025-06-04 15:36:50,089 [I] main: Favicon criado com sucesso
+2025-06-04 15:36:50,089 [I] db: Banco de dados criado/verificado com sucesso
+2025-06-04 15:36:50,089 [I] main: Banco de dados inicializado com sucesso
+2025-06-04 15:36:50,089 [I] main: Modelo LLM inicializado com sucesso
+2025-06-04 15:36:50,091 [I] embedding: 👀 Monitoramento iniciado em 'arquivos/'
+2025-06-04 15:36:50,091 [I] main: ✅ Monitoramento de arquivos iniciado
+2025-06-04 15:36:50,091 [I] main: ⏳ Iniciando indexação em segundo plano...
+2025-06-04 15:36:50,091 [I] main: Thread de indexação iniciada com sucesso
+2025-06-04 15:36:50,092 [I] main: 🧠 Sistema de embeddings está pronto e monitorando novos arquivos.
+2025-06-04 15:36:50,092 [I] main: ✅ Flask configurado para integrar com Gradio
+2025-06-04 15:36:50,092 [I] main: LLM carregado com sucesso
+2025-06-04 15:36:50,092 [I] main: 🔄 Iniciando interface Gradio na porta 7861...
+2025-06-04 15:36:50,350 [I] main: Iniciando interface web...
+2025-06-04 15:36:50,431 [I] embedding: Iniciando indexação com 1 processos para 53 arquivos
+2025-06-04 15:36:50,928 [I] httpx: HTTP Request: GET http://localhost:7861/gradio_api/startup-events "HTTP/1.1 200 OK"
+2025-06-04 15:36:50,955 [I] httpx: HTTP Request: HEAD http://localhost:7861/ "HTTP/1.1 200 OK"
+2025-06-04 15:36:50,958 [I] main: Interface Gradio iniciada com sucesso na porta 7861
+2025-06-04 15:36:51,216 [I] httpx: HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2025-06-04 15:36:51,365 [I] docling.document_converter: Going to convert document batch...
+2025-06-04 15:36:51,365 [I] docling.document_converter: Initializing pipeline for StandardPdfPipeline with options hash 70041f74270850b7bedf7c8f5c2dcede
+2025-06-04 15:36:51,383 [I] docling.models.factories.base_factory: Loading plugin 'docling_defaults'
+2025-06-04 15:36:51,384 [I] docling.models.factories: Registered ocr engines: ['easyocr', 'ocrmac', 'rapidocr', 'tesserocr', 'tesseract']
+2025-06-04 15:36:51,415 [I] httpx: HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2025-06-04 15:36:51,479 [I] docling.utils.accelerator_utils: Accelerator device: 'cpu'
+2025-06-04 15:36:56,689 [I] docling.utils.accelerator_utils: Accelerator device: 'cpu'
+2025-06-04 15:36:58,183 [I] docling.utils.accelerator_utils: Accelerator device: 'cpu'
+2025-06-04 15:36:59,837 [I] docling.models.factories.base_factory: Loading plugin 'docling_defaults'
+2025-06-04 15:36:59,837 [I] docling.models.factories: Registered picture descriptions: ['vlm', 'api']
+2025-06-04 15:36:59,838 [I] docling.pipeline.base_pipeline: Processing document direito6.pdf
+2025-06-04 15:38:38,232 [I] db: Banco de dados criado/verificado com sucesso
+2025-06-04 15:38:38,233 [I] embedding: Tentando carregar índice existente...
+2025-06-04 15:38:38,234 [I] embedding: Índice carregado com sucesso. Contém 500 textos.
+2025-06-04 15:38:38,234 [I] llm_loader: 🔗 OpenRouter API Key detectada. Usando modelo online.
+2025-06-04 15:38:38,517 [I] main: Dependências críticas verificadas
+2025-06-04 15:38:38,517 [I] main: Verificando estrutura de diretórios do projeto...
+2025-06-04 15:38:38,517 [I] main: Diretório models verificado/criado
+2025-06-04 15:38:38,517 [I] main: Diretório data verificado/criado
+2025-06-04 15:38:38,517 [I] main: Diretório cache verificado/criado
+2025-06-04 15:38:38,520 [I] main: Diretório cache/ocr verificado/criado
+2025-06-04 15:38:38,520 [I] main: Diretório arquivos verificado/criado
+2025-06-04 15:38:38,520 [I] main: Diretório static verificado/criado
+2025-06-04 15:38:38,520 [I] main: Ambiente configurado com sucesso
+2025-06-04 15:38:38,521 [I] main: Favicon criado com sucesso
+2025-06-04 15:38:38,521 [I] db: Banco de dados criado/verificado com sucesso
+2025-06-04 15:38:38,521 [I] main: Banco de dados inicializado com sucesso
+2025-06-04 15:38:38,521 [I] main: Modelo LLM inicializado com sucesso
+2025-06-04 15:38:38,523 [I] embedding: 👀 Monitoramento iniciado em 'arquivos/'
+2025-06-04 15:38:38,523 [I] main: ✅ Monitoramento de arquivos iniciado
+2025-06-04 15:38:38,523 [I] main: ⏳ Iniciando indexação em segundo plano...
+2025-06-04 15:38:38,523 [I] main: Thread de indexação iniciada com sucesso
+2025-06-04 15:38:38,524 [I] main: 🧠 Sistema de embeddings está pronto e monitorando novos arquivos.
+2025-06-04 15:38:38,524 [I] main: ✅ Flask configurado para integrar com Gradio
+2025-06-04 15:38:38,524 [I] main: LLM carregado com sucesso
+2025-06-04 15:38:38,524 [I] main: 🔄 Iniciando interface Gradio na porta 7861...
+2025-06-04 15:38:38,670 [I] embedding: Iniciando indexação com 1 processos para 53 arquivos
+2025-06-04 15:38:38,820 [I] main: Iniciando interface web...
+2025-06-04 15:38:39,416 [I] httpx: HTTP Request: GET http://localhost:7861/gradio_api/startup-events "HTTP/1.1 200 OK"
+2025-06-04 15:38:39,443 [I] httpx: HTTP Request: HEAD http://localhost:7861/ "HTTP/1.1 200 OK"
+2025-06-04 15:38:39,445 [I] main: Interface Gradio iniciada com sucesso na porta 7861
+2025-06-04 15:38:39,623 [I] httpx: HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2025-06-04 15:38:39,659 [I] docling.document_converter: Going to convert document batch...
+2025-06-04 15:38:39,660 [I] docling.document_converter: Initializing pipeline for StandardPdfPipeline with options hash 70041f74270850b7bedf7c8f5c2dcede
+2025-06-04 15:38:39,678 [I] docling.models.factories.base_factory: Loading plugin 'docling_defaults'
+2025-06-04 15:38:39,678 [I] docling.models.factories: Registered ocr engines: ['easyocr', 'ocrmac', 'rapidocr', 'tesserocr', 'tesseract']
+2025-06-04 15:38:39,776 [I] docling.utils.accelerator_utils: Accelerator device: 'cpu'
+2025-06-04 15:38:39,921 [I] httpx: HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2025-06-04 15:38:45,158 [I] docling.utils.accelerator_utils: Accelerator device: 'cpu'
+2025-06-04 15:38:46,809 [I] docling.utils.accelerator_utils: Accelerator device: 'cpu'
+2025-06-04 15:38:48,936 [I] docling.models.factories.base_factory: Loading plugin 'docling_defaults'
+2025-06-04 15:38:48,937 [I] docling.models.factories: Registered picture descriptions: ['vlm', 'api']
+2025-06-04 15:38:48,938 [I] docling.pipeline.base_pipeline: Processing document direito6.pdf
+2025-06-04 15:46:40,251 [I] db: Banco de dados criado/verificado com sucesso
+2025-06-04 15:46:40,251 [I] embedding: Tentando carregar índice existente...
+2025-06-04 15:46:40,253 [I] embedding: Índice carregado com sucesso. Contém 500 textos.
+2025-06-04 15:46:40,253 [I] llm_loader: 🔗 OpenRouter API Key detectada. Usando modelo online.
+2025-06-04 15:46:40,678 [I] main: Dependências críticas verificadas
+2025-06-04 15:46:40,678 [I] main: Verificando estrutura de diretórios do projeto...
+2025-06-04 15:46:40,679 [I] main: Diretório models verificado/criado
+2025-06-04 15:46:40,679 [I] main: Diretório data verificado/criado
+2025-06-04 15:46:40,679 [I] main: Diretório cache verificado/criado
+2025-06-04 15:46:40,680 [I] main: Diretório cache/ocr verificado/criado
+2025-06-04 15:46:40,680 [I] main: Diretório arquivos verificado/criado
+2025-06-04 15:46:40,680 [I] main: Diretório static verificado/criado
+2025-06-04 15:46:40,680 [I] main: Ambiente configurado com sucesso
+2025-06-04 15:46:40,681 [I] main: Favicon criado com sucesso
+2025-06-04 15:46:40,681 [I] db: Banco de dados criado/verificado com sucesso
+2025-06-04 15:46:40,682 [I] main: Banco de dados inicializado com sucesso
+2025-06-04 15:46:40,682 [I] main: Modelo LLM inicializado com sucesso
+2025-06-04 15:46:40,684 [I] embedding: 👀 Monitoramento iniciado em 'arquivos/'
+2025-06-04 15:46:40,684 [I] main: ✅ Monitoramento de arquivos iniciado
+2025-06-04 15:46:40,684 [I] main: ⏳ Iniciando indexação em segundo plano...
+2025-06-04 15:46:40,684 [I] main: Thread de indexação iniciada com sucesso
+2025-06-04 15:46:40,685 [I] main: 🧠 Sistema de embeddings está pronto e monitorando novos arquivos.
+2025-06-04 15:46:40,685 [I] main: ✅ Flask configurado para integrar com Gradio
+2025-06-04 15:46:40,686 [I] main: LLM carregado com sucesso
+2025-06-04 15:46:40,686 [I] main: 🔄 Iniciando interface Gradio na porta 7861...
+2025-06-04 15:46:40,908 [I] embedding: Iniciando indexação com 1 processos para 53 arquivos
+2025-06-04 15:46:41,193 [I] main: Iniciando interface web...
+2025-06-04 15:46:41,802 [I] docling.document_converter: Going to convert document batch...
+2025-06-04 15:46:41,803 [I] docling.document_converter: Initializing pipeline for StandardPdfPipeline with options hash 70041f74270850b7bedf7c8f5c2dcede
+2025-06-04 15:46:41,839 [I] docling.models.factories.base_factory: Loading plugin 'docling_defaults'
+2025-06-04 15:46:41,839 [I] docling.models.factories: Registered ocr engines: ['easyocr', 'ocrmac', 'rapidocr', 'tesserocr', 'tesseract']
+2025-06-04 15:46:42,004 [I] docling.utils.accelerator_utils: Accelerator device: 'cpu'
+2025-06-04 15:46:42,040 [I] httpx: HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2025-06-04 15:46:42,247 [I] httpx: HTTP Request: GET http://localhost:7861/gradio_api/startup-events "HTTP/1.1 200 OK"
+2025-06-04 15:46:42,300 [I] httpx: HTTP Request: HEAD http://localhost:7861/ "HTTP/1.1 200 OK"
+2025-06-04 15:46:42,306 [I] main: Interface Gradio iniciada com sucesso na porta 7861
+2025-06-04 15:46:42,350 [I] httpx: HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2025-06-04 15:46:49,391 [I] docling.utils.accelerator_utils: Accelerator device: 'cpu'
+2025-06-04 15:46:51,444 [I] docling.utils.accelerator_utils: Accelerator device: 'cpu'
+2025-06-04 15:46:54,046 [I] docling.models.factories.base_factory: Loading plugin 'docling_defaults'
+2025-06-04 15:46:54,047 [I] docling.models.factories: Registered picture descriptions: ['vlm', 'api']
+2025-06-04 15:46:54,048 [I] docling.pipeline.base_pipeline: Processing document direito6.pdf
+2025-06-06 17:30:59,553 [I] db: Banco de dados criado/verificado com sucesso
+2025-06-06 17:30:59,590 [I] embedding: Tentando carregar índice existente...
+2025-06-06 17:30:59,591 [I] embedding: Índice carregado com sucesso. Contém 500 textos.
+2025-06-06 17:30:59,591 [I] llm_loader: 🔗 OpenRouter API Key detectada. Usando modelo online.
+2025-06-06 17:30:59,744 [I] main: Dependências críticas verificadas
+2025-06-06 17:30:59,745 [I] main: Verificando estrutura de diretórios do projeto...
+2025-06-06 17:30:59,745 [I] main: Diretório models verificado/criado
+2025-06-06 17:30:59,745 [I] main: Diretório data verificado/criado
+2025-06-06 17:30:59,745 [I] main: Diretório cache verificado/criado
+2025-06-06 17:30:59,745 [I] main: Diretório cache/ocr verificado/criado
+2025-06-06 17:30:59,745 [I] main: Diretório arquivos verificado/criado
+2025-06-06 17:30:59,745 [I] main: Diretório static verificado/criado
+2025-06-06 17:30:59,747 [I] main: Ambiente configurado com sucesso
+2025-06-06 17:30:59,747 [I] main: Favicon criado com sucesso
+2025-06-06 17:30:59,748 [I] db: Banco de dados criado/verificado com sucesso
+2025-06-06 17:30:59,748 [I] main: Banco de dados inicializado com sucesso
+2025-06-06 17:30:59,748 [I] main: Modelo LLM inicializado com sucesso
+2025-06-06 17:30:59,749 [I] embedding: 👀 Monitoramento iniciado em 'arquivos/'
+2025-06-06 17:30:59,749 [I] main: ✅ Monitoramento de arquivos iniciado
+2025-06-06 17:30:59,749 [I] main: ⏳ Iniciando indexação em segundo plano...
+2025-06-06 17:30:59,749 [I] main: Thread de indexação iniciada com sucesso
+2025-06-06 17:30:59,749 [I] main: 🧠 Sistema de embeddings está pronto e monitorando novos arquivos.
+2025-06-06 17:30:59,749 [I] main: ✅ Flask configurado para integrar com Gradio
+2025-06-06 17:30:59,750 [I] main: LLM carregado com sucesso
+2025-06-06 17:30:59,750 [I] main: 🔄 Iniciando interface Gradio na porta 7861...
+2025-06-06 17:30:59,822 [I] embedding: Iniciando indexação com 1 processos para 53 arquivos
+2025-06-06 17:30:59,875 [I] main: Iniciando interface web...
+2025-06-06 17:31:00,159 [I] httpx: HTTP Request: GET http://localhost:7861/gradio_api/startup-events "HTTP/1.1 200 OK"
+2025-06-06 17:31:00,173 [I] httpx: HTTP Request: HEAD http://localhost:7861/ "HTTP/1.1 200 OK"
+2025-06-06 17:31:00,174 [I] main: Interface Gradio iniciada com sucesso na porta 7861
+2025-06-06 17:31:01,182 [I] httpx: HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2025-06-06 17:31:01,220 [I] httpx: HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2025-06-06 17:31:27,182 [I] main: Login manual realizado para: teste@gmail.com
+2025-06-06 17:40:59,901 [E] embedding: Erro durante extração paralela: 
+2025-06-06 17:40:59,926 [I] embedding: Tentando carregar índice existente...
+2025-06-06 17:40:59,927 [I] embedding: Índice carregado com sucesso. Contém 500 textos.
+2025-06-06 17:40:59,930 [I] embedding: ✅ 0/53 arquivos indexados com sucesso
+2025-06-06 17:40:59,930 [I] main: ✅ Indexação inicial concluída.

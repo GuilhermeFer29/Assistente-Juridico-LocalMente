@@ -1,13 +1,15 @@
 from db import create_db, salvar_interacao, get_historico, get_historico_completo
-from embedding import load_index, add_embedding, search_embedding, process_file, model, segment_text
+from embedding import segment_text_safe, index_all_files_parallel, iniciar_monitoramento, load_index, add_embedding_from_file, search_embedding, process_file, model
 from llm_loader import get_llm_instance
 from password_reset import enviar_email_recuperacao, gerar_token_recuperacao
 from datetime import datetime
 import os
+import sys
 import sqlite3
 import gradio as gr
 import numpy as np
 import warnings
+import traceback
 from flask import send_from_directory
 from flask import Flask, request, session, jsonify
 from flask_login import LoginManager, UserMixin, current_user, login_user, logout_user, login_required
@@ -17,10 +19,60 @@ import re
 import threading
 import requests
 from PIL import Image, ImageDraw
+from datetime import timedelta
+import time
+import logging
+
+# Configuração de logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s [%(levelname)s] %(message)s',
+    handlers=[
+        logging.StreamHandler(sys.stdout),
+        logging.FileHandler('assistent.log')
+    ]
+)
+logger = logging.getLogger(__name__)
+
+# Variável global para controle de sessão sem depender de Flask-Login
+user_id_atual = None
 
 # Suprime warnings específicos do ebooklib
 warnings.filterwarnings("ignore", category=UserWarning, module='ebooklib')
 warnings.filterwarnings("ignore", category=FutureWarning, module='ebooklib')
+
+def setup_environment():
+    """Cria todos os diretórios essenciais do projeto e verifica arquivos críticos"""
+    logger.info("Verificando estrutura de diretórios do projeto...")
+    # Cria diretórios essenciais
+    directories = ['models', 'data', 'cache', 'cache/ocr', 'arquivos', 'static']
+    for directory in directories:
+        try:
+            os.makedirs(directory, exist_ok=True)
+            logger.info(f"Diretório {directory} verificado/criado")
+        except Exception as e:
+            logger.error(f"Erro ao criar diretório {directory}: {e}")
+    
+    # Verifica arquivos críticos
+    if not os.path.exists('models/tinyllama-cpu.gguf'):
+        logger.warning("AVISO: Modelo LLM não encontrado em models/tinyllama-cpu.gguf")
+        logger.info("O sistema tentará usar a API OpenRouter se configurada")
+    
+    # Garante permissões corretas para os diretórios
+    try:
+        for directory in directories:
+            os.chmod(directory, 0o777)  # Garante permissões completas
+    except Exception as e:
+        logger.warning(f"Não foi possível definir permissões para diretórios: {e}")
+    
+    # Verifica banco de dados
+    try:
+        if not os.path.exists('assistent.db'):
+            logger.info("Banco de dados não encontrado, será criado automaticamente")
+    except Exception as e:
+        logger.error(f"Erro ao verificar banco de dados: {e}")
+    
+    return True
 
 # Cores e tema jurídico
 THEME = gr.themes.Default(
@@ -36,9 +88,10 @@ THEME = gr.themes.Default(
     button_secondary_text_color="#ffffff",
 )
 
-# Configuração de autenticação
+# Configurações iniciais e app Flask
 app = Flask(__name__)
 app.secret_key = secrets.token_hex(32)
+app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=90)
 
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -95,7 +148,18 @@ def api_logout():
 @app.route('/api/check_auth', methods=['GET'])
 def check_auth():
     return jsonify({"authenticated": current_user.is_authenticated})
-
+@login_manager.unauthorized_handler
+def unauthorized_callback():
+    return jsonify({"success": False, "message": "Sessão expirada. Faça login novamente."}), 401
+  
+@app.route('/api/pergunta', methods=['POST'])
+@login_required
+def api_pergunta():
+    data = request.get_json()
+    question = data.get("question", "")
+    # Passa o ID do usuário atualmente logado
+    resposta, fonte = process_question(question, user_id=current_user.id)
+    return jsonify({"resposta": resposta, "fonte": fonte})  
 # Funções auxiliares
 def index_files(files_dir='arquivos/'):
     """Indexa arquivos na pasta especificada"""
@@ -113,28 +177,41 @@ def index_files(files_dir='arquivos/'):
         try:
             content = process_file(file_path, file_ext)
             if content:
-                segments = segment_text(content)
-                add_embedding(index, textos, segments)
+                segments = segment_text_safe(content)
+                add_embedding_from_file(index, textos, file_path, file)
                 results.append(f"✓ Arquivo {file} indexado com sucesso")
         except Exception as e:
             results.append(f"✗ Erro ao processar {file}: {str(e)}")
     
     return "\n".join(results) if results else "Nenhum arquivo válido encontrado."
 
-def process_question(question, use_history=True, use_embeddings=True):
-    """Processa a pergunta e retorna resposta e fonte"""
+def process_question(question, use_history=True, use_embeddings=True, user_id=None):
+    """Processa a pergunta e retorna resposta e fonte
+    
+    Args:
+        question (str): A pergunta do usuário
+        use_history (bool): Se deve verificar o histórico de perguntas similares
+        use_embeddings (bool): Se deve usar embeddings para encontrar conteúdo relevante
+        user_id (int): ID do usuário, opcional (usado para salvar a interação)
+        
+    Returns:
+        tuple: (resposta, fonte)
+    """
     resposta, fonte = "", "Modelo Jurídico"
     
     if use_history:
-        historico = get_historico(question)
-        if historico:
-            return "\n\n".join(f"📜 Pergunta: {h[0]}\n⚖️ Resposta: {h[1]}" for h in historico), "Histórico"
+        # Se houver um user_id, busca no histórico do usuário
+        # Caso contrário, busca no histórico geral (limitado)
+        historico = get_historico(user_id, limite=5)
+        # Verifica se alguma pergunta similar já foi respondida
+        for h in historico:
+            if question.lower() in h[0].lower() or h[0].lower() in question.lower():
+                return f"📜 Pergunta: {h[0]}\n⚖️ Resposta: {h[1]}", "Histórico"
     
     if use_embeddings:
         similar = search_embedding(index, textos, question)
         if similar:
-            context = "\n".join(similar[:3])
-            resposta = llm_loader.generate_response(question, context)
+            resposta = llm_loader.generate_response(question, similar[:3])
             fonte = "Base de Conhecimento"
     
     if not resposta:
@@ -143,10 +220,11 @@ def process_question(question, use_history=True, use_embeddings=True):
     try:
         embedding = model.encode([question + " " + resposta])[0].tobytes()
     except Exception as e:
-        print(f"Erro ao gerar embedding: {str(e)}")
+        logger.error(f"Erro ao gerar embedding: {str(e)}")
         embedding = None
     
-    salvar_interacao(question, resposta, fonte, embedding)
+    # Salva a interação associada ao usuário (se disponível)
+    salvar_interacao(user_id, question, resposta, fonte, embedding)
     return resposta, fonte
 
 def process_upload(files):
@@ -330,50 +408,66 @@ def create_interface():
                 <p>Assistente Jurídico Digital v1.0 - © 2025 - Não substitui aconselhamento jurídico profissional</p>
             </div>
             """)
+        
+        # Sessão HTTP
+        session_http = requests.Session()
 
-        # Lógica de login via API
+        # Lógica de login integrada diretamente
         def perform_login(username, password):
             if not username or not password:
                 return [
                     "❌ Preencha todos os campos", 
                     False, 
                     None, 
-                    gr.update(visible=True),  # login_col
-                    gr.update(visible=False)  # main_col
+                    gr.update(visible=True),  
+                    gr.update(visible=False)  
                 ]
             
             try:
-                response = requests.post(
-                    "http://localhost:5000/api/login",
-                    json={"username": username, "password": password},
-                    headers={"Content-Type": "application/json"}
-                )
+                # Usa diretamente a lógica de login do Flask
+                conn = sqlite3.connect('assistent.db')
+                cursor = conn.cursor()
+                cursor.execute("SELECT id, senha_hash, email FROM usuarios WHERE email = ?", (username,))
+                usuario = cursor.fetchone()
+                conn.close()
                 
-                if response.status_code == 200:
-                    return [
-                        "✅ Login realizado com sucesso", 
-                        True, 
-                        username, 
-                        gr.update(visible=False),  # login_col
-                        gr.update(visible=True)    # main_col
-                    ]
+                if usuario and check_password_hash(usuario[1], password):
+                    user = User(usuario[0], usuario[2])
+                    
+                    # Cria uma sessão manualmente - solução alternativa sem Flask-Login
+                    try:
+                        # Armazena diretamente o ID do usuário em uma variável global
+                        global user_id_atual
+                        user_id_atual = usuario[0]
+                        logger.info(f"Login manual realizado para: {username}")
+                        return [
+                            "✅ Login realizado com sucesso", 
+                            True, 
+                            username, 
+                            gr.update(visible=False),  
+                            gr.update(visible=True)    
+                        ]
+                    except Exception as inner_e:
+                        logger.error(f"Erro no login manual: {inner_e}")
+                        raise
                 else:
-                    error = response.json().get("error", "Erro desconhecido")
                     return [
-                        f"❌ {error}", 
+                        "❌ Credenciais inválidas", 
                         False, 
                         None, 
-                        gr.update(visible=True),  # login_col
-                        gr.update(visible=False)  # main_col
+                        gr.update(visible=True),  
+                        gr.update(visible=False)  
                     ]
             except Exception as e:
+                logger.error(f"Erro na autenticação: {str(e)}")
                 return [
-                    f"❌ Erro na conexão: {str(e)}", 
+                    f"❌ Erro na autenticação: {str(e)}", 
                     False, 
                     None, 
-                    gr.update(visible=True),  # login_col
-                    gr.update(visible=False)  # main_col
+                    gr.update(visible=True),  
+                    gr.update(visible=False)  
                 ]
+
 
         # Lógica de cadastro
         def perform_register(new_username, new_password, confirm_password):
@@ -427,12 +521,15 @@ def create_interface():
                 return "✅ E-mail de recuperação enviado. Verifique sua caixa de entrada."
             return "❌ Erro ao enviar e-mail de recuperação"
 
-        # Lógica de logout via API
+        # Lógica de logout integrada (versão alternativa sem Flask-Login)
         def perform_logout():
             try:
-                requests.post("http://localhost:5000/api/logout")
+                # Usa nossa variável global para gerenciar a sessão
+                global user_id_atual
+                user_id_atual = None
+                logger.info("Logout manual realizado com sucesso.")
             except Exception as e:
-                print(f"Erro no logout: {str(e)}")
+                logger.error(f"Erro no logout: {str(e)}")
             return [
                 False, 
                 None, 
@@ -465,30 +562,44 @@ def create_interface():
             outputs=[logged_in, current_user, login_col, main_col, login_status]
         )
 
-        # Funções protegidas
         def protected_process_question(question, user):
             try:
-                response = requests.get("http://localhost:5000/api/check_auth")
-                if not response.json().get("authenticated", False):
-                    raise gr.Error("Sessão expirada. Faça login novamente.")
-                return process_question(question)
+                # Verifica autenticação usando nossa variável global
+                global user_id_atual
+                if user_id_atual is None:
+                    return "Sessão expirada. Faça login novamente.", "Acesso negado"
+                
+                # Chama diretamente a função de processamento com o ID do usuário
+                resposta, fonte = process_question(question, user_id=user_id_atual)
+                return resposta, fonte
             except Exception as e:
-                raise gr.Error(f"Erro ao verificar autenticação: {str(e)}")
+                logger.error(f"Erro ao processar pergunta: {str(e)}")
+                return f"Erro ao processar pergunta: {str(e)}", "Erro"
+
 
         submit_btn.click(
             protected_process_question,
             inputs=[question, current_user],
             outputs=[answer, source]
         )
+        
+        clear_btn.click(
+          lambda: ("", "", ""),
+          outputs=[question, answer, source]
+        )
 
         def protected_process_upload(files, user):
             try:
-                response = requests.get("http://localhost:5000/api/check_auth")
-                if not response.json().get("authenticated", False):
-                    raise gr.Error("Sessão expirada. Faça login novamente.")
+                # Verifica autenticação usando nossa variável global
+                global user_id_atual
+                if user_id_atual is None:
+                    return "Sessão expirada. Faça login novamente."
+                    
+                # Processa o upload normalmente
                 return process_upload(files)
             except Exception as e:
-                raise gr.Error(f"Erro ao verificar autenticação: {str(e)}")
+                logger.error(f"Erro ao processar upload: {str(e)}")
+                return f"Erro ao processar upload: {str(e)}"
 
         upload_btn.upload(
             protected_process_upload,
@@ -502,41 +613,262 @@ def create_interface():
             outputs=output
         )
 
-    return demo
+        # Final dos handlers da interface
+        return demo
 
 def main():
-    """Função principal"""
-    # Cria favicon e banco de dados
-    create_favicon()
-    create_db()
+    """Função principal que inicializa todos os componentes"""
+    # Configuração inicial do log
+    error_log = None
     
-    # Cria usuário admin se necessário
-    conn = sqlite3.connect('assistent.db')
-    cursor = conn.cursor()
-    cursor.execute("SELECT 1 FROM usuarios WHERE email='admin'")
-    if not cursor.fetchone():
-        cursor.execute(
-            "INSERT INTO usuarios (email, senha_hash, nome, data_cadastro) VALUES (?, ?, ?, ?)",
-            ("admin", generate_password_hash("admin123"), "Administrador", datetime.now().isoformat())
-        )
-        conn.commit()
-    conn.close()
+    try:
+        # Cria arquivo de log detalhado
+        error_log = open('error_log.txt', 'a')
+        error_log.write(f"\n\n==== INÍCIO DA APLICAÇÃO {datetime.now().isoformat()} ====\n")
+    except Exception as e:
+        logger.error(f"Erro ao criar arquivo de log: {e}")
+        # Continua sem o arquivo de log
+    
+    try:
+        # Instala dependências críticas em runtime, se necessário
+        try:
+            import pkg_resources
+            # Verifica se psutil está instalado
+            pkg_resources.get_distribution('psutil')
+            logger.info("Dependências críticas verificadas")
+        except (pkg_resources.DistributionNotFound, ImportError):
+            logger.warning("psutil não encontrado. Tentando instalar...")
+            try:
+                import subprocess
+                subprocess.call([sys.executable, "-m", "pip", "install", "psutil"])
+                logger.info("psutil instalado com sucesso")
+            except Exception as e:
+                logger.error(f"Erro ao instalar dependências: {e}")
+                # Continua mesmo sem psutil
+        
+        # Configura o ambiente
+        setup_environment()
+        logger.info("Ambiente configurado com sucesso")
+        
+        # Criação de recursos estáticos
+        try:
+            create_favicon()
+            logger.info("Favicon criado com sucesso")
+        except Exception as e:
+            logger.error(f"Erro ao criar favicon: {e}")
+        
+        # Verifica e cria banco de dados - APENAS UMA VEZ
+        try:
+            create_db()
+            logger.info("Banco de dados inicializado com sucesso")
+        except Exception as e:
+            logger.error(f"Erro ao inicializar banco de dados: {e}")
+            logger.warning("Continuando mesmo sem banco de dados")
+            traceback.print_exc(file=error_log)
+        
+        # Inicializa o modelo LLM
+        try:
+            llm = get_llm_instance()
+            if llm and llm.model_available:
+                logger.info("Modelo LLM inicializado com sucesso")
+            else:
+                logger.warning("LLM não disponível. Algumas funcionalidades estarão limitadas.")
+        except Exception as e:
+            logger.error(f"Erro ao inicializar LLM: {e}")
+            logger.warning("Continuando sem LLM. Funcionalidade será limitada")
+            traceback.print_exc(file=error_log)
+        
+        # Cria usuário admin se necessário
+        try:
+            conn = sqlite3.connect('assistent.db')
+            cursor = conn.cursor()
+            cursor.execute("SELECT 1 FROM usuarios WHERE email='admin'")
+            if not cursor.fetchone():
+                cursor.execute(
+                    "INSERT INTO usuarios (email, senha_hash, nome, data_cadastro) VALUES (?, ?, ?, ?)",
+                    ("admin", generate_password_hash("admin123"), "Administrador", datetime.now().isoformat())
+                )
+                conn.commit()
+                logger.info("✅ Usuário admin criado com sucesso")
+            conn.close()
+        except Exception as e:
+            logger.error(f"⚠️ Erro ao criar usuário admin: {str(e)}")
+            traceback.print_exc(file=error_log)
+        
+        # Inicializa componentes em paralelo com melhor tratamento de erros
+        observer = None
+        observers_and_threads = []
+        
+        # Inicia o monitoramento da pasta 'arquivos/' em background (retorna o observer)
+        try:
+            observer = iniciar_monitoramento()
+            if observer:
+                observers_and_threads.append(("observer", observer))
+                logger.info("✅ Monitoramento de arquivos iniciado")
+            else:
+                logger.warning("Monitoramento de arquivos não pôde ser iniciado, continuando...")
+        except Exception as e:
+            logger.error(f"⚠️ Erro ao iniciar monitoramento: {str(e)}")
+            traceback.print_exc(file=error_log)
 
-    # Cria thread para executar o Flask
-    flask_thread = threading.Thread(
-        target=lambda: app.run(port=5000, debug=False, use_reloader=False),
-        daemon=True
-    )
-    flask_thread.start()
+        # Indexa arquivos já existentes (apenas os novos se force=False)
+        def background_index():
+            try:
+                logger.info("⏳ Iniciando indexação em segundo plano...")
+                # Mais conservador nos recursos
+                index_all_files_parallel(force=False, num_procs=1)  
+                logger.info("✅ Indexação inicial concluída.")
+            except Exception as e:
+                logger.error(f"⚠️ Erro na indexação: {str(e)}")
+                traceback.print_exc(file=error_log)
+        
+        # Dispara thread separada para indexação com menor prioridade
+        try:
+            thread_index = threading.Thread(target=background_index, daemon=True, name="IndexThread")
+            thread_index.start()
+            observers_and_threads.append(("thread_index", thread_index))
+            logger.info("Thread de indexação iniciada com sucesso")
+        except Exception as e:
+            logger.error(f"Erro ao iniciar thread de indexação: {e}")
 
-    # Cria interface Gradio
-    interface = create_interface()
-    interface.launch(
-        server_name="0.0.0.0",
-        server_port=7861,
+        logger.info("🧠 Sistema de embeddings está pronto e monitorando novos arquivos.")
+
+        # Configura o Flask para integração com Gradio
+        try:
+            app.config['SERVER_NAME'] = None  # Previne conflitos de porta
+            app.config['APPLICATION_ROOT'] = '/'
+            app.config['PREFERRED_URL_SCHEME'] = 'http'
+            app.config['SESSION_COOKIE_SECURE'] = False
+            app.config['SESSION_COOKIE_HTTPONLY'] = True
+            app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # Limita uploads a 16MB
+            logger.info("✅ Flask configurado para integrar com Gradio")
+        except Exception as e:
+            logger.error(f"⚠️ Erro ao configurar Flask: {str(e)}")
+            traceback.print_exc(file=error_log)
+
+        # Verifica se o LLM foi carregado corretamente
+        try:
+            llm = get_llm_instance()
+            logger.info("LLM carregado com sucesso")
+        except Exception as e:
+            logger.warning(f"Aviso ao carregar LLM (continuará sem modelo local): {e}")
+
+        # Cria e inicia interface Gradio
+        try:
+            logger.info("🔄 Iniciando interface Gradio na porta 7861...")
+            interface = create_interface()
+            try:
+                # Configuração de servidor mais robusta
+                os.environ['GRADIO_SERVER_NAME'] = "0.0.0.0"
+                os.environ['GRADIO_SERVER_PORT'] = "7861"
+                # Configuração para evitar conflitos de threading
+                os.environ['GRADIO_ALLOW_FLAGGING'] = "never"
+                os.environ['GRADIO_NUM_WORKERS'] = "1"
+                
+                logger.info("Iniciando interface web...")
+                
+                # Primeiro, tenta iniciar com Gradio
+                try:
+                    # Inicia a interface Gradio
+                    demo = create_interface()
+                    
+                    # Configura app Flask para servir Gradio
+                    app.app = demo.app
+                    
+                    # Lança Gradio com configurações para estabilidade
+                    demo.queue(max_size=10).launch(
+                        server_name="0.0.0.0",
+                        server_port=7861,
+                        share=False,
+                        inbrowser=False,
+                        auth=None,
+                        prevent_thread_lock=True,
+                        favicon_path="static/favicon.ico",
+                        quiet=True,
+                        show_error=True,
+                        max_threads=2  # Limita uso de threads
+                    )
+                    logger.info("Interface Gradio iniciada com sucesso na porta 7861")
+                    
+                    # Loop principal com tratamento de exceções
+                    while True:
+                        try:
+                            time.sleep(30)  # Heartbeat a cada 30 segundos
+                        except KeyboardInterrupt:
+                            logger.info("Aplicação encerrada pelo usuário")
+                            break
+                        except Exception as e:
+                            logger.error(f"Erro no loop principal: {e}")
+                            # Continua o loop mesmo com erros
+                        
+                except Exception as gradio_error:
+                    # Se falhar com Gradio, tenta apenas Flask
+                    logger.error(f"Erro ao iniciar Gradio: {gradio_error}")
+                    try:
+                        logger.info("Tentando iniciar apenas com Flask...")
+                        app.run(
+                            host="0.0.0.0", 
+                            port=7861, 
+                            debug=False, 
+                            use_reloader=False, 
+                            threaded=True
+                        )
+                    except Exception as flask_error:
+                        logger.error(f"Erro ao iniciar Flask: {flask_error}")
+                        raise
+            
+            except Exception as e:
+                logger.critical(f"ERRO FATAL: {e}")
+                logger.info("Modo de emergência - Mantendo processo ativo para diagnóstico")
+                
+                # Modo de emergência mantendo o processo vivo
+                contador = 0
+                try:
+                    while True:
+                        time.sleep(10)
+                        contador += 1
+                        if contador % 6 == 0:  # A cada minuto
+                            logger.info(f"HEARTBEAT - {datetime.now().isoformat()}")
+                except KeyboardInterrupt:
+                    logger.info("Aplicação encerrada pelo usuário")
+                        
+        except Exception as e:
+            logger.critical(f"ERRO FATAL INESPERADO: {str(e)}")
+            traceback.print_exc()
+            return False
+    except Exception as e:
+        logger.critical(f"ERRO CATASTRÓFICO: {str(e)}")
+        return False
+    return True
+
+
+
+# A aplicação Flask e o LoginManager já foram inicializados anteriormente
+# Atualiza algumas configurações adicionais
+app.config['UPLOAD_FOLDER'] = 'arquivos'
+app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=1)
+
+# Cria a interface Gradio e a integra com Flask
+def run_app():
+    """Função para iniciar a aplicação Gradio"""
+    # Cria a interface
+    demo = create_interface()
+    
+    # Configura o servidor
+    return demo.launch(
+        server_name=os.getenv('GRADIO_SERVER_NAME', '0.0.0.0'),
+        server_port=int(os.getenv('GRADIO_SERVER_PORT', '7861')),
         share=False,
-        favicon_path=None
+        debug=False,
+        show_error=True
     )
 
+# Initialize application on first import
+if main():
+    interface = run_app()
+else:
+    logger.critical("Falha ao iniciar a aplicação. Verifique os logs para mais detalhes.")
+
+# Flask entry point
 if __name__ == "__main__":
-    main()
+    app.run(host='0.0.0.0', port=7861, debug=False)

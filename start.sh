@@ -1,75 +1,123 @@
 #!/bin/bash
-while true; do
-    echo "=== $(date) ==="
-    docker stats --no-stream --format "table {{.Name}}\t{{.CPUPerc}}\t{{.MemUsage}}"
-    free -h
-    sensors | grep "Core"
-    sleep 5
-done#!/bin/bash
 
-# Script de inicialização do Assistente Jurídico Digital com Docker
-# Uso: ./start.sh [--build] [--stop]
+# Script de gerenciamento do Assistente Jurídico Digital
+# Uso: ./manage.sh [start|stop|restart|update|monitor|logs]
+
+# Configurações
+CONTAINER_NAME="assistente-juridico"
+PROJECT_DIR="/DATA/AppData/AssistenteJuridico"
+COMPOSE_FILE="$PROJECT_DIR/docker-compose.yml"
 
 # Cores para mensagens
 RED='\033[0;31m'
 GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
-NC='\033[0m' # No Color
+BLACK='\033[1;33m'
+BLUE='\033[0;34m'
+NC='\033[0m'
 
-# Função para construir e iniciar os containers
-start_application() {
-    echo -e "${YELLOW}Iniciando o Assistente Jurídico Digital...${NC}"
+# Funções principais
+start_container() {
+    echo -e "${GREEN}Iniciando o Assistente Jurídico...${NC}"
+    cd "$PROJECT_DIR" || exit 1
     
-    # Verifica se o docker-compose está instalado
-    if ! command -v docker-compose &> /dev/null; then
-        echo -e "${RED}Erro: docker-compose não está instalado.${NC}"
-        exit 1
-    fi
-    
-    # Verifica se deve construir as imagens
+    local build_flag=""
     if [ "$1" == "--build" ]; then
-        echo -e "${GREEN}Construindo as imagens Docker...${NC}"
-        docker-compose build
+        build_flag="--build"
+        echo -e "${YELLOW}Reconstruindo imagens...${NC}"
     fi
     
-    # Inicia os serviços
-    echo -e "${GREEN}Subindo os containers...${NC}"
-    docker-compose up -d
-    
-    # Verifica se os containers estão rodando
-    if [ $(docker-compose ps -q | wc -l) -ge 1 ]; then
-        echo -e "\n${GREEN}✅ Assistente Jurídico Digital está rodando!${NC}"
-        echo -e "\nAcesse a interface em: ${YELLOW}http://localhost:7861${NC}"
-        echo -e "API Flask disponível em: ${YELLOW}http://localhost:5000${NC}"
+    if docker compose -f "$COMPOSE_FILE" up -d $build_flag; then
+        echo -e "${GREEN}✅ Container iniciado com sucesso${NC}"
+        echo -e "Acesse: ${BLUE}http://localhost:7861${NC}"
     else
-        echo -e "${RED}❌ Erro ao iniciar os containers.${NC}"
-        docker-compose logs
-        exit 1
+        echo -e "${RED}❌ Falha ao iniciar container${NC}"
+        docker compose -f "$COMPOSE_FILE" logs
+        return 1
     fi
 }
 
-# Função para parar os containers
-stop_application() {
-    echo -e "${YELLOW}Parando o Assistente Jurídico Digital...${NC}"
-    docker-compose down
-    echo -e "${GREEN}✅ Containers parados com sucesso.${NC}"
+stop_container() {
+    echo -e "${YELLOW}Parando o container...${NC}"
+    cd "$PROJECT_DIR" || exit 1
+    docker compose -f "$COMPOSE_FILE" down
+    echo -e "${GREEN}✅ Container parado${NC}"
 }
 
-# Verifica os argumentos
+restart_container() {
+    stop_container
+    start_container
+}
+
+update_container() {
+    echo -e "${BLUE}Atualizando o container...${NC}"
+    cd "$PROJECT_DIR" || exit 1
+    docker compose -f "$COMPOSE_FILE" build --no-cache
+    start_container
+}
+
+monitor_resources() {
+    echo -e "${YELLOW}Monitorando recursos... (Ctrl+C para sair)${NC}"
+    echo -e "${BLUE}=== Sistema ===${NC}"
+    while true; do
+        echo -e "\n${YELLOW}=== $(date) ===${NC}"
+        
+        # Docker stats
+        echo -e "\n${BLUE}Container Stats:${NC}"
+        docker stats --no-stream --format "table {{.Name}}\t{{.CPUPerc}}\t{{.MemUsage}}\t{{.NetIO}}\t{{.BlockIO}}"
+        
+        # System memory
+        echo -e "\n${BLUE}Memória do Sistema:${NC}"
+        free -h
+        
+        # CPU temperature
+        if sensors &> /dev/null; then
+            echo -e "\n${BLUE}Temperatura da CPU:${NC}"
+            sensors | grep "Core"
+        fi
+        
+        sleep 5
+    done
+}
+
+show_logs() {
+    echo -e "${YELLOW}Exibindo logs... (Ctrl+C para sair)${NC}"
+    cd "$PROJECT_DIR" || exit 1
+    docker compose -f "$COMPOSE_FILE" logs -f --tail=50
+}
+
+# Menu principal
 case "$1" in
-    "--build")
-        start_application "--build"
+    "start")
+        if [ "$2" == "--build" ]; then
+            start_container "--build"
+        else
+            start_container
+        fi
         ;;
-    "--stop")
-        stop_application
+    "stop")
+        stop_container
         ;;
-    "")
-        start_application
+    "restart")
+        restart_container
+        ;;
+    "update")
+        update_container
+        ;;
+    "monitor")
+        monitor_resources
+        ;;
+    "logs")
+        show_logs
         ;;
     *)
-        echo -e "${RED}Uso: ./start.sh [--build] [--stop]${NC}"
-        echo -e "  --build  Reconstroi as imagens Docker antes de iniciar"
-        echo -e "  --stop   Para os containers"
+        echo -e "${YELLOW}Uso: ./manage.sh [comando]${NC}"
+        echo -e "Comandos disponíveis:"
+        echo -e "  ${GREEN}start [--build]${NC} - Inicia o container (opcional: reconstruir imagens)"
+        echo -e "  ${RED}stop${NC}          - Para o container"
+        echo -e "  ${YELLOW}restart${NC}       - Reinicia o container"
+        echo -e "  ${BLUE}update${NC}        - Atualiza o container (reconstruir com todas as mudanças)"
+        echo -e "  ${YELLOW}monitor${NC}       - Monitora recursos do sistema e container"
+        echo -e "  ${GREEN}logs${NC}          - Mostra os logs em tempo real"
         exit 1
         ;;
 esac

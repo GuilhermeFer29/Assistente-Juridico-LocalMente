@@ -2,15 +2,72 @@ version: '3.8'
 
 services:
   assistente-juridico:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: assistente-juridico
-    ports:
-      - "7860:7860"  # Gradio
-      - "5000:5000"  # Flask
     volumes:
-      - ./app:/app
-      - ./arquivos:/app/arquivos
+      - ./data:/app/data
+      - ./cache:/app/cache
+      - ./models:/app/models
       - ./static:/app/static
+      - ./arquivos:/app/arquivos
+      - ./logs:/app/logs
+    ports:
+      - "7861:7861"
     environment:
+      - FLASK_APP=main.py
       - FLASK_ENV=production
+      - PYTHONUNBUFFERED=1
+      - PYTHONIOENCODING=utf-8
+      - GRADIO_SERVER_NAME=0.0.0.0
+      - GRADIO_SERVER_PORT=7861
+      - LLAMA_CPP_USE_CUBLAS=0
+      - LLAMA_CPP_N_THREADS=2
+      - LLAMA_CPP_LOW_VRAM=1
+      - LLAMA_CPP_N_GPU_LAYERS=0
+      - OPENROUTER_API_KEY=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
+    deploy:
+      resources:
+        limits:
+          memory: 3g
+          cpus: '1.5'
+        reservations:
+          memory: 1g
+    ulimits:
+      memlock: -1
+      stack: 67108864
+      nofile: 4096
+    restart: always
+
+  index-watcher:
+    build: .
+    container_name: index-watcher
+    working_dir: /app
+    volumes:
+      - .:/app
+    command: python index_watcher.py
+    deploy:
+      resources:
+        limits:
+          memory: 1g
+          cpus: '1.0'
     restart: unless-stopped
+    ulimits:
+      memlock: -1
+
+  faiss-trainer:
+    build: .
+    container_name: faiss-trainer
+    working_dir: /app
+    volumes:
+      - .:/app
+    command: python alimentador_periodico.py
+    deploy:
+      resources:
+        limits:
+          memory: 1g
+          cpus: '1.0'
+    restart: unless-stopped
+    ulimits:
+      memlock: -1
